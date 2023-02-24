@@ -4,6 +4,7 @@ import domain.ROUNDING_ACCURACY
 import domain.aliases.Matrix
 import java.io.File
 import java.math.RoundingMode
+import java.nio.file.Path
 
 /**
  * A class that stores functions for manipulating files
@@ -14,8 +15,8 @@ object Files {
      * @param filepath the path to the file with a two-dimensional array
      * @return an object containing a matrix with values read from a file
      */
-    fun readAsMatrix(filepath: String): Matrix<Double> {
-        val inputStream = File(filepath).inputStream()
+    fun readAsMatrix(filepath: Path): Matrix<Double> {
+        val inputStream = File(filepath.toUri()).inputStream()
         val result: Matrix<Double> = mutableListOf()
 
         inputStream.bufferedReader().forEachLine { line ->
@@ -35,8 +36,8 @@ object Files {
      * @param destination the path where the matrix file will be created/updated
      * @param matrix the matrix whose values need to be saved
      */
-    fun writeMatrixToFile(destination: String, matrix: Matrix<Double>) {
-        File(destination).printWriter().use { writer ->
+    fun writeMatrixToFile(destination: Path, matrix: Matrix<Double>) {
+        File(destination.toUri()).printWriter().use { writer ->
             matrix.forEach { array ->
                 array.forEach {
                     val number = it.toBigDecimal().setScale(ROUNDING_ACCURACY, RoundingMode.HALF_EVEN)

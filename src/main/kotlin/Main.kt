@@ -4,6 +4,7 @@ import domain.classes.toRational
 import utilities.Files
 import utilities.Mathematics
 import java.math.RoundingMode
+import kotlin.io.path.Path
 
 
 fun main(args: Array<String>) {
@@ -22,7 +23,7 @@ fun main(args: Array<String>) {
     // Getting arguments for the program passed by the user
     val input = args[0]
     val output = args[1]
-    val columns = args
+    var columns = args
         .sliceArray(2 until args.size)
         .map { it.toInt() }
         .toMutableSet()
@@ -31,7 +32,7 @@ fun main(args: Array<String>) {
     /* Forming a matrix and checking the condition for the number of rows (M) and columns (N)
     (N >= M) */
     try {
-        matrix = Files.readAsMatrix(input)
+        matrix = Files.readAsMatrix(Path(input))
     } catch (e: Exception) {
         System.err.println("Error while reading: ${e.message}")
         return
@@ -47,12 +48,12 @@ fun main(args: Array<String>) {
 
     /* Checking the index list of columns and selecting suitable ones
     (they do not exceed acceptable limits and are unique). */
-    columns.take(matrix.size - 1).toSet().forEach {
-        if (it !in 0 until matrix[0].size) {
+    columns = columns.take(matrix.size).filter {
+        if (it !in 0 until (matrix[0].size - 1)) {
             println("The column with index $it does not exist in the matrix")
-            columns.remove(it)
-        }
-    }
+            false
+        } else true
+    }.toMutableSet()
     if (columns.size == 0) {
         System.err.println("No matching columns found, canceling the application of the Gauss method")
         return
@@ -73,8 +74,8 @@ fun main(args: Array<String>) {
     Mathematics.gauss(matrix, columns.toSet())
 
     try {
-        Files.writeMatrixToFile(output, matrix)
-        println("Calculations completed successfully. The result is written to a file $output")
+        Files.writeMatrixToFile(Path(output), matrix)
+        println("Calculations completed successfully. The result is written to a file ${Path(output).toUri()}")
     } catch (e: Exception) {
         println("Error while saving: ${e.message}")
     }
