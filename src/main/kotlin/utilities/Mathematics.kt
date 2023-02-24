@@ -12,6 +12,8 @@ object Mathematics {
      * Solves a matrix of size N*M using the Gauss method (performs only the
      * reduction of the matrix to the upper diagonal form)
      * @param matrix the matrix to be solved
+     * @param selectedColumns a set of columns relative to which the matrix
+     * will be reduced to a diagonal type
      * @return the original matrix reduced to the upper diagonal form
      */
     fun gauss(matrix: Matrix<Double>, selectedColumns: Set<Int> = setOf()) : Matrix<Double> {
