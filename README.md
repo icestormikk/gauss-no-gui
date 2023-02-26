@@ -11,7 +11,7 @@ java ... input_file_path output_file_path [...columns]
 
 ## Пример: 
 ```
-java ... input.txt output.txt 0 2 4
+java ... input.txt output.txt 0 1
 ```
 ### input.txt
 ```
