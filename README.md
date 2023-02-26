@@ -4,6 +4,22 @@
 
 Вывод осуществляется в файл, путь к которому передаётся через параметр output_file_path, и в консоль.
 
-Формат использвания: java ... input_file_path output_file_path [...columns]
+## Формат использвания: 
+````
+java ... input_file_path output_file_path [...columns]
+```
 
-Пример: java ... input.txt output.txt 0 2 4
+## Пример: 
+```
+java ... input.txt output.txt 0 2 4
+```
+### input.txt
+```
+1 2 5 -1 4
+1 -1 -1 2 1
+```
+### output.txt
+```
+1.000000 0.000000 1.000000 1.000000 2.000000 
+0.000000 1.000000 2.000000 -1.000000 1.000000
+```
