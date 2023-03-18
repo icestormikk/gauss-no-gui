@@ -19,7 +19,10 @@ object Mathematics {
     fun gauss(matrix: Matrix<Double>, selectedColumns: Set<Int> = setOf()) : Matrix<Double> {
         for (column in selectedColumns) {
             val i = selectedColumns.indexOf(column)
-            fetchMainElement(matrix, i)
+            if (matrix[i][column] == 0.0) {
+                fetchMainElement(matrix, i)
+            }
+
             if (matrix[i][column] == 0.0) { continue }
 
             for (j in (matrix.size - 1)downTo 0) {
